@@ -80,7 +80,7 @@ public class StudentView {
         System.out.println("Nhập ID sinh viên cần xóa");
         int idDelete = Config.validateInt();
         for (Mark mark : markService.findAll()) {
-            if (mark.getStudent().getStudentId() == idDelete) {
+            if (mark.getStudent().getId() == idDelete) {
                 System.out.println("Sinh viên đang có điểm không được xóa");
                 return;
             }

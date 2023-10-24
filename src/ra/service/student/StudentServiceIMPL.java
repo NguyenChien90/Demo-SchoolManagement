@@ -19,7 +19,7 @@ public class StudentServiceIMPL implements IStudentService{
 
     @Override
     public void update(Student student) {
-        Student studentEdit = findByID(student.getStudentId());
+        Student studentEdit = findByID(student.getId());
         studentEdit.setStudentName(student.getStudentName());
         studentEdit.setClassroom(student.getClassroom());
         studentEdit.setAddress(student.getAddress());
@@ -37,7 +37,7 @@ public class StudentServiceIMPL implements IStudentService{
     @Override
     public Student findByID(int id) {
         for (Student student : studentList) {
-            if (student.getStudentId() == id){
+            if (student.getId() == id){
                 return student;
             }
         }

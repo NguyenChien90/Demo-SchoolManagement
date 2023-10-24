@@ -54,7 +54,7 @@ public class SubjectView {
         int idDelete = Config.validateInt();
         List<Mark> markList = markService.findAll();
         for (Mark mark : markList) {
-            if (mark.getSubject().getSubjectId() == idDelete){
+            if (mark.getSubject().getId() == idDelete){
                 System.out.println("Mon học đã tồn tại diem không được xóa");
                 return;
             }

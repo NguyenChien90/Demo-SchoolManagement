@@ -19,7 +19,7 @@ public class SubjectServiceIMPL implements ISubjectService {
 
     @Override
     public void update(Subject subject) {
-        Subject subjectEdit = findByID(subject.getSubjectId());
+        Subject subjectEdit = findByID(subject.getId());
         subjectEdit.setSubjectName(subject.getSubjectName());
     }
 
@@ -33,7 +33,7 @@ public class SubjectServiceIMPL implements ISubjectService {
     @Override
     public Subject findByID(int id) {
         for (Subject subject : subjectList) {
-            if (subject.getSubjectId() == id){
+            if (subject.getId() == id){
                 return subject;
             }
         }

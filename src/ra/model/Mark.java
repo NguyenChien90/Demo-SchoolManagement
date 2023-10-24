@@ -1,29 +1,13 @@
 package ra.model;
 
-public class Mark {
+public class Mark extends Entity<Integer> {
     private static int newId =1;
-    private int markId;
     private Student student;
     private Subject subject;
     private double poin;
 
     public Mark() {
-        this.markId = newId++;
-    }
-
-    public Mark(int markId, Student student, Subject subject, double poin) {
-        this.markId = markId;
-        this.student = student;
-        this.subject = subject;
-        this.poin = poin;
-    }
-
-    public int getMarkId() {
-        return markId;
-    }
-
-    public void setMarkId(int markId) {
-        this.markId = markId;
+        this.id = newId++;
     }
 
     public Student getStudent() {
@@ -52,7 +36,7 @@ public class Mark {
 
     @Override
     public String toString() {
-        return "Mã điểm: " + markId +
+        return "Mã điểm: " + id +
                 " - Tên sinh viên: " + student.getStudentName() +
                 " - Tên môn học: " + subject.getSubjectName() +
                 " - Điểm số: " + poin;

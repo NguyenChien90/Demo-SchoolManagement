@@ -1,50 +1,42 @@
 package ra.service.classroom;
 
 import ra.model.Classroom;
+import ra.repo.ClassRoomRepository;
+import ra.repo.FileRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassroomServiceIMPL implements IClassroomService {
+    private ClassRoomRepository classRoomRepository;
 
-    static List<Classroom> classroomList = new ArrayList<>();
-//    static {
-//        classroomList.add(new Classroom(1,"C001",true));
-//    }
-
+    public ClassroomServiceIMPL() {
+        this.classRoomRepository = new ClassRoomRepository();
+    }
 
     @Override
     public List<Classroom> findAll() {
-        return classroomList;
+        return classRoomRepository.findAll();
     }
 
     @Override
     public void save(Classroom classroom) {
-        classroomList.add(classroom);
+        classRoomRepository.save(classroom);
     }
 
     @Override
     public void update(Classroom classroom) {
-        Classroom classroomEdit = findByID(classroom.getClassroomId());
-        classroomEdit.setClassroomName(classroom.getClassroomName());
-        classroomEdit.setStatus(classroom.isStatus());
+        classRoomRepository.save(classroom);
     }
 
     @Override
     public void delete(int id) {
-        //        classroomList.remove(findById(id)); viết tắt
-        Classroom classroomDelete = findByID(id); //viết rõ ràng
-        classroomList.remove(classroomDelete);
+        classRoomRepository.deleteById(id);
 
     }
 
     @Override
     public Classroom findByID(int id) {
-        for (Classroom classroom : classroomList) {
-            if (classroom.getClassroomId() == id) {
-                return classroom;
-            }
-        }
-        return null;
+        return classRoomRepository.findById(id);
     }
 }

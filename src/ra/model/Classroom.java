@@ -1,27 +1,16 @@
 package ra.model;
 
-public class Classroom {
+import java.io.Serializable;
+
+public class Classroom extends Entity<Integer> {
+    private static final long serialVersionUID = 1L;
+
     private static int newId = 1;
-    private int classroomId;
     private String classroomName;
     private boolean status;
 
     public Classroom() {
-        this.classroomId = newId++;
-    }
-
-    public Classroom(int classroomId, String classroomName, boolean status) {
-        this.classroomId = classroomId;
-        this.classroomName = classroomName;
-        this.status = status;
-    }
-
-    public int getClassroomId() {
-        return classroomId;
-    }
-
-    public void setClassroomId(int classroomId) {
-        this.classroomId = classroomId;
+        super(newId++);
     }
 
     public String getClassroomName() {
@@ -42,7 +31,7 @@ public class Classroom {
 
     @Override
     public String toString() {
-        return "Mã lớp học: " + classroomId + " - Tên lớp: " + classroomName +
+        return "Mã lớp học: " + id + " - Tên lớp: " + classroomName +
                 " - Trạng thái lớp: " + (status ? "Đang học":"Kết thúc");
     }
 }

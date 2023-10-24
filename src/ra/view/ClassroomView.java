@@ -51,7 +51,7 @@ public class ClassroomView {
         int idDelete = Config.validateInt();
         List<Student> studentList = studentService.findAll();
         for (Student student : studentList) {
-            if (student.getClassroom().getClassroomId() == idDelete){
+            if (student.getClassroom().getId() == idDelete){
                 System.out.println("Lớp học đã tồn tại sinh viên không được xóa");
                 return;
             }

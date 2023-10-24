@@ -1,8 +1,7 @@
 package ra.model;
 
-public class Student {
+public class Student extends Entity<Integer> {
     private  static int newId = 1;
-    private int studentId;
     private String studentName;
     private Classroom classroom;
     private String birthday;
@@ -11,25 +10,7 @@ public class Student {
     private String phone;
 
     public Student() {
-        this.studentId = newId++;
-    }
-
-    public Student(int studentId, String studentName, Classroom classroom, String birthday, String address, boolean gender, String phone) {
-        this.studentId = studentId;
-        this.studentName = studentName;
-        this.classroom = classroom;
-        this.birthday = birthday;
-        this.address = address;
-        this.gender = gender;
-        this.phone = phone;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+        this.id = newId++;
     }
 
     public String getStudentName() {
@@ -82,7 +63,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Mã sinh viên: " + studentId +
+        return "Mã sinh viên: " + id +
                 " - Tên sinh viên: " + studentName +
                 " - Tên lớp: " + classroom.getClassroomName() +
                 " - Ngày sinh: " + birthday +

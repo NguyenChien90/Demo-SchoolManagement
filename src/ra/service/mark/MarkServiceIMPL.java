@@ -20,7 +20,7 @@ public class MarkServiceIMPL implements IMarkService {
 
     @Override
     public void update(Mark mark) {
-        Mark markEdit = findByID(mark.getMarkId());
+        Mark markEdit = findByID(mark.getId());
         markEdit.setPoin(mark.getPoin());
     }
 
@@ -32,7 +32,7 @@ public class MarkServiceIMPL implements IMarkService {
     @Override
     public Mark findByID(int id) {
         for (Mark mark : markList) {
-            if (mark.getMarkId() == id) {
+            if (mark.getId() == id) {
                 return mark;
             }
         }

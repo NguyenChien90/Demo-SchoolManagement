@@ -1,25 +1,11 @@
 package ra.model;
 
-public class Subject {
+public class Subject extends Entity<Integer> {
     private static int newId = 1;
-    private int subjectId;
     private String subjectName;
 
     public Subject() {
-        this.subjectId =newId++;
-    }
-
-    public Subject(int subjectId, String subjectName) {
-        this.subjectId = subjectId;
-        this.subjectName = subjectName;
-    }
-
-    public int getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+        this.id =newId++;
     }
 
     public String getSubjectName() {
@@ -32,7 +18,7 @@ public class Subject {
 
     @Override
     public String toString() {
-        return  "Mã môn học: " + subjectId +
+        return  "Mã môn học: " + id +
                 " - Tên môn học: " + subjectName;
     }
 }
