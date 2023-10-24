@@ -87,7 +87,7 @@ public class Student {
                 " - Tên lớp: " + classroom.getClassroomName() +
                 " - Ngày sinh: " + birthday +
                 " - Địa chỉ: " + address +
-                " - Giới tính: " + gender +
+                " - Giới tính: " + (gender?"Nam":"Nữ") +
                 " - Điện thoại: " + phone;
     }
 }
