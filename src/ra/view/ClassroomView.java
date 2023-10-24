@@ -56,17 +56,12 @@ public class ClassroomView {
                 return;
             }
         }
-        boolean check = true;
-        for (Classroom classroom : classroomService.findAll()) {
-            if (classroom.getClassroomId() == idDelete){
-                classroomService.delete(idDelete);
-                System.out.println("Xóa lớp học thành công");
-                check = false;
-                break;
-            }
-        }
-        if (check){
-            System.out.println("Không tim thấy lớp học theo ID vừa nhâp");
+        Classroom classroomDelete = classroomService.findByID(idDelete);
+        if (classroomDelete == null){
+            System.out.println("Lớp học theo ID vừa nhập không tồn tại");
+        }else {
+            classroomService.delete(idDelete);
+            System.out.println("Xóa lớp học thành công");
         }
 
     }
@@ -118,6 +113,8 @@ public class ClassroomView {
 
     private void showListClassroom() {
         System.out.println("DANH SACH LOP HOC");
+        if (classroomService.findAll().isEmpty()) System.out.println("Danh sách rỗng !!!");
+
         List<Classroom> classroomList = classroomService.findAll();
         for (Classroom classroom : classroomList) {
             System.out.println(classroom);

@@ -59,18 +59,14 @@ public class SubjectView {
                 return;
             }
         }
-        boolean check = true;
-        for (Subject subject : subjectService.findAll()) {
-            if (subject.getSubjectId() == idDelete){
-                subjectService.delete(idDelete);
-                System.out.println("Xóa mon học thành công");
-                check = false;
-                break;
-            }
+        Subject subjectDelete = subjectService.findByID(idDelete);
+        if (subjectDelete == null){
+            System.out.println("Môn học theo Id vừa nhập không tồn tại");
+        }else {
+            markService.delete(idDelete);
+            System.out.println("Xóa môn học thành công");
         }
-        if (check){
-            System.out.println("Không tim thấy mon học theo ID vừa nhâp");
-        }
+
     }
 
     private void editSubject() {
@@ -101,6 +97,8 @@ public class SubjectView {
 
     private void showListSubject() {
         System.out.println("DANH SACH MON HOC");
+        if (subjectService.findAll().isEmpty()) System.out.println("Danh sách rỗng !!!");
+
         List<Subject> subjectList = subjectService.findAll();
         for (Subject subject : subjectList) {
             System.out.println(subject);

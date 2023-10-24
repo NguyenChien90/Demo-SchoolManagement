@@ -2,6 +2,7 @@ package ra.view;
 
 import ra.config.Config;
 import ra.model.Mark;
+import ra.model.Subject;
 import ra.service.classroom.ClassroomServiceIMPL;
 import ra.service.classroom.IClassroomService;
 import ra.service.mark.IMarkService;
@@ -10,6 +11,9 @@ import ra.service.student.IStudentService;
 import ra.service.student.StudentServiceIMPL;
 import ra.service.subject.ISubjectService;
 import ra.service.subject.SubjectServiceIMPL;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MarkView {
     IMarkService markService = new MarkServiceIMPL();
@@ -26,7 +30,7 @@ public class MarkView {
             System.out.println("3. Sắp xếp điểm thi theo thứ tự giảm dần");
             System.out.println("4. Thay đổi điểm thi theo mã ID");
             System.out.println("5. Xóa điểm thi theo mã ID");
-            System.out.println("6. Hiển thị điểm thi theo mã môn học");
+            System.out.println("6. Hiển thị điểm thi theo môn học");
             System.out.println("7. Đánh giá học lực theo từng môn");
             System.out.println("0. Quay lai");
             System.out.print("Lựa chọn (1/2/3/4/5/6/7/8): ");
@@ -39,14 +43,19 @@ public class MarkView {
                     addMark();
                     break;
                 case 3:
+                    sortMarkASC();
                     break;
                 case 4:
+                    editMark();
                     break;
                 case 5:
+                    deleteMark();
                     break;
                 case 6:
+                    showListMarkBySubJect();
                     break;
                 case 7:
+
                     break;
                 case 0:
                     return;
@@ -55,6 +64,57 @@ public class MarkView {
                     break;
             }
         } while (true);
+    }
+
+    private void showListMarkBySubJect() {
+        System.out.println("Danh sách các môn học");
+        for (int i = 0; i < subjectService.findAll().size(); i++) {
+            System.out.println((i+1)+". "+ subjectService.findAll().get(i).getSubjectName());
+        }
+        System.out.println("Mời lựa chọn môn học cần hiển thị điểm theo số: ");
+        int choice = Config.validateInt();
+        System.out.println("Danh sách điểm theo môn học");
+        for (Mark mark : markService.findAll()) {
+            if (mark.getSubject().getSubjectName().equals(subjectService.findAll().get(choice-1).getSubjectName())){
+                System.out.println(mark);
+            }
+        }
+    }
+
+    private void deleteMark() {
+        System.out.println("Nhập ID điểm cần xóa");
+        int idDelete = Config.validateInt();
+        Mark markDelete = markService.findByID(idDelete);
+        if (markDelete == null){
+            System.out.println("Không tồn tại điểm theo ID vừa nhập");
+        }else {
+            markService.delete(idDelete);
+            System.out.println("Xóa điểm thành công");
+        }
+    }
+
+    private void editMark() {
+        System.out.println("Nhập ma ID điểm cần sửa: ");
+        int idEdit = Config.validateInt();
+        Mark markEdit = markService.findByID(idEdit);
+        if (markEdit == null){
+            System.out.println("Điểm cần sửa theo mã ID vừa nhập không tồn tại");
+        }else {
+            System.out.println(markEdit);
+            System.out.println("Mời nhập điểm mới: ");
+            markEdit.setPoin(Double.parseDouble(Config.scanner().nextLine()));
+            System.out.println("Sửa điểm thành công");
+        }
+    }
+
+    private void sortMarkASC() {
+        Collections.sort(markService.findAll(), new Comparator<Mark>() {
+            @Override
+            public int compare(Mark o1, Mark o2) {
+                return (int) (o1.getPoin() - o2.getPoin());
+            }
+        });
+        System.out.println("Đã sắp xếp theo điểm thành công");
     }
 
     private void addMark() {
@@ -104,6 +164,8 @@ public class MarkView {
     }
 
     private void showListMark() {
+        if (markService.findAll().isEmpty()) System.out.println("Danh sách rỗng !!!");
+
         System.out.println("DANH SACH DIEM");
         for (Mark mark : markService.findAll()) {
             System.out.println(mark);

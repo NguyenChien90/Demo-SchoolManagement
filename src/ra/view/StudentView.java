@@ -85,16 +85,12 @@ public class StudentView {
                 return;
             }
         }
-        boolean check =true;
-        for (Student student : studentService.findAll()) {
-            if (student.getStudentId() == idDelete){
-                studentService.delete(idDelete);
-                System.out.println("Xóa sinh viên thành công");
-                check = false;
-            }
-        }
-        if (check){
-            System.out.println("Không tìm thấy sinh viên theo Id cần xóa");
+        Student studentDelete = studentService.findByID(idDelete);
+        if (studentDelete == null){
+            System.out.println("Không tồn tại sinh viên theo ID vừa nhập vào");
+        }else {
+            studentService.delete(idDelete);
+            System.out.println("Xóa sinh viên thành công");
         }
 
     }
@@ -184,6 +180,8 @@ public class StudentView {
 
     private void showListStudent() {
         System.out.println("DANH SACH HOC SINH");
+        if (studentService.findAll().isEmpty()) System.out.println("Danh sách rỗng !!!");
+
         for (Student student : studentService.findAll()) {
             System.out.println(student);
         }
