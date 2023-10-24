@@ -19,12 +19,14 @@ public class SubjectView {
     public void menuSubject() {
         int choice;
         do {
-            System.out.println("**********************SUBJECT MANAGER************************");
-            System.out.println("1. Hiển thị danh sách môn học");
-            System.out.println("2. Thêm môn học mới");
-            System.out.println("3. Sửa thông tin của lớp môn");
-            System.out.println("4. Xóa môn học");
-            System.out.println("0. Quay lai");
+            System.out.println(".----------------------------SUBJECT MANAGER---------------------------.");
+            System.out.println("|                    1. Hiển thị danh sách môn học                     |");
+            System.out.println("|                    2. Thêm môn học mới                               |");
+            System.out.println("|                    3. Sửa thông tin của lớp môn                      |");
+            System.out.println("|                    4. Xóa môn học                                    |");
+            System.out.println("|                    0. Quay lai                                       |");
+            System.out.println("'----------------------------------------------------------------------'");
+
             System.out.print("Lựa chọn (1/2/3/4/5/6/7/8): ");
             choice = Config.validateInt();
             switch (choice) {

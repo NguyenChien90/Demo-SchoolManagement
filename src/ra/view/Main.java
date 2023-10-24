@@ -11,12 +11,13 @@ public class Main {
     public void menu() {
             int choice;
             do {
-                System.out.println("**********************MENU************************");
-                System.out.println("1. Quản lý lớp học");
-                System.out.println("2. Quản lý sinh viên");
-                System.out.println("3. Quản lý môn học");
-                System.out.println("4. Quản lý điểm");;
-                System.out.println("0. Thoát");
+                System.out.println(".---------------------------------MENU---------------------------------.");
+                System.out.println("|                         1. Quản lý lớp học                           |");
+                System.out.println("|                         2. Quản lý sinh viên                         |");
+                System.out.println("|                         3. Quản lý môn học                           |");
+                System.out.println("|                         4. Quản lý điểm                              |");
+                System.out.println("|                         0. Thoát                                     |");
+                System.out.println("'----------------------------------------------------------------------'");
                 System.out.print("Lựa chọn (0/1/2/3/4) ");
                 choice = Config.validateInt();
                 switch (choice) {

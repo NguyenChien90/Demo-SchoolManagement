@@ -19,14 +19,17 @@ public class StudentView {
     public void menuStudent() {
         int choice;
         do {
-            System.out.println("*************MENU STUDENT MANAGER***********");
-            System.out.println("1. Hiển thị danh sách hoc sinh");
-            System.out.println("2. Thêm hoc sinh");
-            System.out.println("3. Sửa thông tin học sinh");
-            System.out.println("4. Xóa học sinh");
-            System.out.println("5. Sắp xếp học sinh theo tên");
-            System.out.println("6. Tìm kiếm học sinh theo tên hoặc lớp học");
-            System.out.println("0. Quay lại");
+
+            System.out.println(".----------------------------STUDENT MANAGER---------------------------.");
+            System.out.println("|               1. Hiển thị danh sách hoc sinh                         |");
+            System.out.println("|               2. Thêm hoc sinh                                       |");
+            System.out.println("|               3. Sửa thông tin học sinh                              |");
+            System.out.println("|               4. Xóa học sinh                                        |");
+            System.out.println("|               5. Sắp xếp học sinh theo tên                           |");
+            System.out.println("|               6. Tìm kiếm học sinh theo tên hoặc lớp học             |");
+            System.out.println("|               0. Quay lại                                            |");
+            System.out.println("'----------------------------------------------------------------------'");
+
             System.out.print("Mời lựa chọn (0/1/2/3/4/5/6): ");
             choice = Config.validateInt();
             switch (choice) {

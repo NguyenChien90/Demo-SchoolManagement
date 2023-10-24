@@ -7,6 +7,11 @@ import java.util.List;
 
 public class SubjectServiceIMPL implements ISubjectService {
     static List<Subject> subjectList = new ArrayList<>();
+    static {
+        subjectList.add(new Subject(1,"JS"));
+        subjectList.add(new Subject(2,"Java"));
+        subjectList.add(new Subject(3,"Python"));
+    }
     @Override
     public List<Subject> findAll() {
         return subjectList;

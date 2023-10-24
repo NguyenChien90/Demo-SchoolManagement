@@ -8,9 +8,11 @@ import java.util.List;
 public class ClassroomServiceIMPL implements IClassroomService {
 
     static List<Classroom> classroomList = new ArrayList<>();
-//    static {
-//        classroomList.add(new Classroom(1,"C001",true));
-//    }
+    static {
+        classroomList.add(new Classroom(1,"C001",true));
+        classroomList.add(new Classroom(2,"C002",true));
+        classroomList.add(new Classroom(3,"C003",true));
+    }
 
 
     @Override

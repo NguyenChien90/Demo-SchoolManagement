@@ -24,15 +24,17 @@ public class MarkView {
     public void menuMark() {
         int choice;
         do {
-            System.out.println("**********************MARK MANAGER************************");
-            System.out.println("1. Hiển thị danh sách điểm thi");
-            System.out.println("2. Thêm điểm thi cho sinh viên");
-            System.out.println("3. Sắp xếp điểm thi theo thứ tự giảm dần");
-            System.out.println("4. Thay đổi điểm thi theo mã ID");
-            System.out.println("5. Xóa điểm thi theo mã ID");
-            System.out.println("6. Hiển thị điểm thi theo môn học");
-            System.out.println("7. Đánh giá học lực theo từng điểm của môn học");
-            System.out.println("0. Quay lai");
+            System.out.println(".------------------------------MARK MANAGER----------------------------.");
+            System.out.println("|                1. Hiển thị danh sách điểm thi                        |");
+            System.out.println("|                2. Thêm điểm thi cho sinh viên                        |");
+            System.out.println("|                3. Sắp xếp điểm thi theo thứ tự giảm dần              |");
+            System.out.println("|                4. Thay đổi điểm thi theo mã ID                       |");
+            System.out.println("|                5. Xóa điểm thi theo mã ID                            |");
+            System.out.println("|                6. Hiển thị điểm thi theo môn học                     |");
+            System.out.println("|                7. Đánh giá học lực theo từng điểm của môn học        |");
+            System.out.println("|                0. Quay lai                                           |");
+            System.out.println("'----------------------------------------------------------------------'");
+
             System.out.print("Lựa chọn (1/2/3/4/5/6/7/8): ");
             choice = Config.validateInt();
             switch (choice) {
@@ -67,6 +69,14 @@ public class MarkView {
     }
 
     private void rankByPoinOfMark() {
+        // xắp xếp theo môn học
+        Collections.sort(markService.findAll(), new Comparator<Mark>() {
+            @Override
+            public int compare(Mark o1, Mark o2) {
+                return o1.getSubject().getSubjectName().compareTo(o2.getSubject().getSubjectName());
+            }
+        });
+        // đánh giá theo điểm
         for (Mark mark : markService.findAll()) {
             if(mark.getPoin() >=9){
                 System.out.print(mark);
@@ -82,7 +92,7 @@ public class MarkView {
                 System.out.println(" - Xếp loại trung bình");
             }else {
                 System.out.print(mark);
-                System.out.println(" - Xếp loại ywwus");
+                System.out.println(" - Xếp loại yếu");
             }
         }
     }
@@ -132,7 +142,7 @@ public class MarkView {
         Collections.sort(markService.findAll(), new Comparator<Mark>() {
             @Override
             public int compare(Mark o1, Mark o2) {
-                return (int) (o1.getPoin() - o2.getPoin());
+                return (int) (o2.getPoin() - o1.getPoin());
             }
         });
         System.out.println("Đã sắp xếp theo điểm thành công");
