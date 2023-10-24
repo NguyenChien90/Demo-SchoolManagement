@@ -1,5 +1,6 @@
 package ra.service.mark;
 
+import ra.model.Classroom;
 import ra.model.Mark;
 
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ public class MarkServiceIMPL implements IMarkService {
 
     @Override
     public void update(Mark mark) {
-
+        Mark markEdit = findByID(mark.getMarkId());
+        markEdit.setPoin(mark.getPoin());
     }
 
     @Override
@@ -29,6 +31,11 @@ public class MarkServiceIMPL implements IMarkService {
 
     @Override
     public Mark findByID(int id) {
+        for (Mark mark : markList) {
+            if (mark.getMarkId() == id) {
+                return mark;
+            }
+        }
         return null;
     }
 }

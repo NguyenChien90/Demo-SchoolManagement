@@ -31,7 +31,7 @@ public class MarkView {
             System.out.println("4. Thay đổi điểm thi theo mã ID");
             System.out.println("5. Xóa điểm thi theo mã ID");
             System.out.println("6. Hiển thị điểm thi theo môn học");
-            System.out.println("7. Đánh giá học lực theo từng môn");
+            System.out.println("7. Đánh giá học lực theo từng điểm của môn học");
             System.out.println("0. Quay lai");
             System.out.print("Lựa chọn (1/2/3/4/5/6/7/8): ");
             choice = Config.validateInt();
@@ -55,7 +55,7 @@ public class MarkView {
                     showListMarkBySubJect();
                     break;
                 case 7:
-
+                    rankByPoinOfMark();
                     break;
                 case 0:
                     return;
@@ -64,6 +64,27 @@ public class MarkView {
                     break;
             }
         } while (true);
+    }
+
+    private void rankByPoinOfMark() {
+        for (Mark mark : markService.findAll()) {
+            if(mark.getPoin() >=9){
+                System.out.print(mark);
+                System.out.println(" - Xếp loại xuất sắc");
+            }else if (mark.getPoin() >=8){
+                System.out.print(mark);
+                System.out.println(" - Xếp loại giỏi");
+            }else if (mark.getPoin() >= 6.5) {
+                System.out.print(mark);
+                System.out.println(" - Xếp loại khá");
+            }else if (mark.getPoin() >5) {
+                System.out.print(mark);
+                System.out.println(" - Xếp loại trung bình");
+            }else {
+                System.out.print(mark);
+                System.out.println(" - Xếp loại ywwus");
+            }
+        }
     }
 
     private void showListMarkBySubJect() {
