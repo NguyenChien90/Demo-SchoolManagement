@@ -1,0 +1,128 @@
+package ra.view;
+import ra.config.Config;
+import ra.model.Classroom;
+import ra.model.Student;
+import ra.service.classroom.IClassroomService;
+import ra.service.student.IStudentService;
+import ra.service.classroom.ClassroomServiceIMPL;
+import ra.service.student.StudentServiceIMPL;
+
+import java.util.List;
+
+public class ClassroomView {
+    IClassroomService classroomService = new ClassroomServiceIMPL();
+    IStudentService studentService = new StudentServiceIMPL();
+
+    public void menuClassroom() {
+            int choice;
+            do {
+                System.out.println("**********************CLASSROOM MANAGER************************");
+                System.out.println("1. Hiển thị danh sách lớp học");
+                System.out.println("2. Thêm lớp học mới");
+                System.out.println("3. Sửa thông tin của lớp học");
+                System.out.println("4. Xóa lớp học");
+                System.out.println("0. Quay lai");
+                System.out.print("Lựa chọn (1/2/3/4/5/6/7/8): ");
+                choice = Config.validateInt();
+                switch (choice) {
+                    case 1:
+                        showListClassroom();
+                        break;
+                    case 2:
+                        addClassroom();
+                        break;
+                    case 3:
+                        editClassroom();
+                        break;
+                    case 4:
+                        deleteClassroom();
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
+                        break;
+                }
+            } while (true);
+        }
+
+    private void deleteClassroom() {
+        System.out.println("Nhập ID lớp học cần xóa: ");
+        int idDelete = Config.validateInt();
+        List<Student> studentList = studentService.findAll();
+        for (Student student : studentList) {
+            if (student.getClassroom().getClassroomId() == idDelete){
+                System.out.println("Lớp học đã tồn tại sinh viên không được xóa");
+                return;
+            }
+        }
+        boolean check = true;
+        for (Classroom classroom : classroomService.findAll()) {
+            if (classroom.getClassroomId() == idDelete){
+                classroomService.delete(idDelete);
+                System.out.println("Xóa lớp học thành công");
+                check = false;
+                break;
+            }
+        }
+        if (check){
+            System.out.println("Không tim thấy lớp học theo ID vừa nhâp");
+        }
+
+    }
+
+    private void editClassroom() {
+        System.out.println("Mời nhập Id lớp cần sửa thông tin: ");
+        int inEdit = Config.validateInt();
+        Classroom classroomEdit = classroomService.findByID(inEdit);
+        if (classroomEdit == null){
+            System.out.println("Không tìm thấy lớp theo ID vừa nhâp");
+        }else {
+            System.out.println(classroomEdit);
+            int choice;
+            System.out.println("Mời chọn thông tin cần sửa");
+            System.out.println("1.Sửa tên");
+            System.out.println("2.Sửa trạng thái");
+            choice = Config.validateInt();
+            switch (choice){
+                case 1:
+                    System.out.println("Nhập tên mới: ");
+                    classroomEdit.setClassroomName(Config.scanner().nextLine());
+                    break;
+                case 2:
+                    classroomEdit.setStatus(!classroomEdit.isStatus());
+                    System.out.println("Đã thay đổi trạng thái");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ mời nhập lại");
+            }
+            classroomService.update(classroomEdit);
+        }
+
+
+    }
+
+    private void addClassroom() {
+        System.out.println("Nhap so luong lop hoc can them");
+        int n = Config.validateInt();
+        for (int i = 0; i < n; i++) {
+            System.out.println("Nhap lop hoc thu "+(i+1)+": ");
+            Classroom classroom = new Classroom();
+            System.out.println("Nhap lop hoc: ");
+            classroom.setClassroomName(Config.scanner().nextLine());
+            System.out.println("Nhap trang thai lop true/fale");
+            classroom.setStatus(Boolean.parseBoolean(Config.scanner().nextLine()));
+            classroomService.save(classroom);
+        }
+    }
+
+    private void showListClassroom() {
+        System.out.println("DANH SACH LOP HOC");
+        List<Classroom> classroomList = classroomService.findAll();
+        for (Classroom classroom : classroomList) {
+            System.out.println(classroom);
+        }
+    }
+
+
+}
