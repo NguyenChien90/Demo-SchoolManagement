@@ -103,6 +103,7 @@ public class ClassroomView {
         for (int i = 0; i < n; i++) {
             System.out.println("Nhap lop hoc thu "+(i+1)+": ");
             Classroom classroom = new Classroom();
+            classroom.setId(classroomService.getNewId());
             System.out.println("Nhap lop hoc: ");
             classroom.setClassroomName(Config.scanner().nextLine());
             System.out.println("Nhap trang thai lop true/fale");

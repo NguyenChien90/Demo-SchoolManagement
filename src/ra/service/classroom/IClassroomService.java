@@ -1,7 +1,7 @@
 package ra.service.classroom;
 
 import ra.model.Classroom;
-import ra.service.IGeneric;
+import ra.service.IService;
 
-public interface IClassroomService extends IGeneric<Classroom> {
+public interface IClassroomService extends IService<Classroom> {
 }

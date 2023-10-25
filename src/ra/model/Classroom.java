@@ -4,14 +4,8 @@ import java.io.Serializable;
 
 public class Classroom extends Entity<Integer> {
     private static final long serialVersionUID = 1L;
-
-    private static int newId = 1;
     private String classroomName;
     private boolean status;
-
-    public Classroom() {
-        super(newId++);
-    }
 
     public String getClassroomName() {
         return classroomName;

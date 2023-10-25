@@ -48,4 +48,9 @@ public class StudentServiceIMPL implements IStudentService{
     public Student findByName(String name) {
         return null;
     }
+
+    @Override
+    public int getNewId() {
+        return 0;
+    }
 }

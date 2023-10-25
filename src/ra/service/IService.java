@@ -2,8 +2,10 @@ package ra.service;
 
 import java.util.List;
 
-public interface IGeneric<T> {
+public interface IService<T> {
     List<T> findAll();
+
+    int getNewId();
     void save(T t);
     void update(T t);
     void delete(int id);

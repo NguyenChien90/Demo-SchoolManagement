@@ -14,6 +14,11 @@ public class MarkServiceIMPL implements IMarkService {
     }
 
     @Override
+    public int getNewId() {
+        return 0;
+    }
+
+    @Override
     public void save(Mark mark) {
         markList.add(mark);
     }

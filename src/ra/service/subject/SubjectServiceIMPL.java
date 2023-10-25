@@ -39,4 +39,9 @@ public class SubjectServiceIMPL implements ISubjectService {
         }
         return null;
     }
+
+    @Override
+    public int getNewId() {
+        return 0;
+    }
 }
