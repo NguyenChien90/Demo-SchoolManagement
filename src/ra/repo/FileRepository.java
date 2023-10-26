@@ -44,7 +44,7 @@ public class FileRepository <T extends Entity, ID extends Number> {
         for (T e : list) {
             if (t.getId().equals(e.getId())) {
                 int indexOf = list.indexOf(e);
-                list.set(indexOf, e);
+                list.set(indexOf, t);
                 return saveToFile(list, this.fileName);
             }
         }

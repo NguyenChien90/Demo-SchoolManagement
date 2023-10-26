@@ -15,6 +15,12 @@ public class UserServiceIMPL implements IUserService {
         this.loginRepository = new FileRepository<>(FileName.LOGIN);
     }
 
+    //for testing
+    public UserServiceIMPL(String fileName) {
+        this.userRepository = new FileRepository<>(fileName);
+
+    }
+
     @Override
     public List<User> findAll() {
         return userRepository.findAll();

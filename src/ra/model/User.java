@@ -11,6 +11,25 @@ public class User extends Entity<Integer> {
 
     private Status status;
 
+    public User() {
+
+    }
+
+    public User(String username, String password, Role role, Status status) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+    }
+
+    public User(Integer id, String username, String password, Role role, Status status) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -41,5 +60,12 @@ public class User extends Entity<Integer> {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        User o = (User) obj;
+        return this.username.equals(o.username) && this.password.equals(o.password)
+                && this.role.equals(o.role) && this.status.equals(o.status);
     }
 }
