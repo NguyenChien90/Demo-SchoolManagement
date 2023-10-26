@@ -68,4 +68,15 @@ public class User extends Entity<Integer> {
         return this.username.equals(o.username) && this.password.equals(o.password)
                 && this.role.equals(o.role) && this.status.equals(o.status);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", status=" + status +
+                ", id=" + id +
+                '}';
+    }
 }

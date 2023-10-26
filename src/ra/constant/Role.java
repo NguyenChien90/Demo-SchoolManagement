@@ -1,6 +1,8 @@
 package ra.constant;
 
-public enum Role {
+import java.io.Serializable;
+
+public enum Role implements Serializable {
     ADMIN("admin"), USER("user");
     private String roleName;
 

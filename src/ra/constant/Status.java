@@ -1,5 +1,7 @@
 package ra.constant;
 
-public enum Status {
+import java.io.Serializable;
+
+public enum Status implements Serializable {
     BLOCK, ACTIVE, INACTIVE;
 }

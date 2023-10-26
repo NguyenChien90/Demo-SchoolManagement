@@ -62,4 +62,8 @@ public class UserServiceIMPL implements IUserService {
 
         return null;
     }
+
+    public User getCurrentUser() {
+        return loginRepository.getOne();
+    }
 }

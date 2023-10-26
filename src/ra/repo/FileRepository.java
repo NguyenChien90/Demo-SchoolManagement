@@ -64,6 +64,20 @@ public class FileRepository <T extends Entity, ID extends Number> {
         }
     }
 
+    public T getOne() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(fileName);
+            ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
+            T t = (T) inputStream.readObject();
+            inputStream.close();
+
+            return t;
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+            return null;
+        }
+
+    }
+
     public T findById(ID id) {
         List<T> list = findAll();
         for (T t : list) {

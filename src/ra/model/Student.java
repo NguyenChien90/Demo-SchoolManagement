@@ -1,16 +1,27 @@
 package ra.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Student extends Entity<Integer> {
     private  static int newId = 1;
+
+    private int userId;
     private String studentName;
     private Classroom classroom;
+
+    private List<Subject> subjects = new ArrayList<>();
     private String birthday;
     private String address;
     private boolean gender;
     private String phone;
 
-    public Student() {
-        this.id = newId++;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getStudentName() {
@@ -27,6 +38,22 @@ public class Student extends Entity<Integer> {
 
     public void setClassroom(Classroom classroom) {
         this.classroom = classroom;
+    }
+
+    public static int getNewId() {
+        return newId;
+    }
+
+    public static void setNewId(int newId) {
+        Student.newId = newId;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     public String getBirthday() {

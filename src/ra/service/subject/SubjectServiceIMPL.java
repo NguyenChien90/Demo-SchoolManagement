@@ -1,47 +1,43 @@
 package ra.service.subject;
 
+import ra.constant.FileName;
 import ra.model.Subject;
+import ra.repo.FileRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectServiceIMPL implements ISubjectService {
-    static List<Subject> subjectList = new ArrayList<>();
+    private FileRepository<Subject, Integer> subjectRepository = new FileRepository<>(FileName.SUBJECT);
+
     @Override
     public List<Subject> findAll() {
-        return subjectList;
+        return subjectRepository.findAll();
     }
 
     @Override
     public void save(Subject subject) {
-        subjectList.add(subject);
+        subjectRepository.save(subject);
     }
 
     @Override
     public void update(Subject subject) {
-        Subject subjectEdit = findByID(subject.getId());
-        subjectEdit.setSubjectName(subject.getSubjectName());
+        subjectRepository.save(subject);
     }
 
     @Override
     public void delete(int id) {
-        Subject subjectDelete = findByID(id);
-        subjectList.remove(subjectDelete);
+        subjectRepository.deleteById(id);
 
     }
 
     @Override
     public Subject findByID(int id) {
-        for (Subject subject : subjectList) {
-            if (subject.getId() == id){
-                return subject;
-            }
-        }
-        return null;
+        return subjectRepository.findById(id);
     }
 
     @Override
     public int getNewId() {
-        return 0;
+        return subjectRepository.getNewId();
     }
 }

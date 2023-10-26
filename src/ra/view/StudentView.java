@@ -4,17 +4,22 @@ import ra.config.Config;
 import ra.model.Classroom;
 import ra.model.Mark;
 import ra.model.Student;
+import ra.model.User;
 import ra.service.classroom.ClassroomServiceIMPL;
 import ra.service.classroom.IClassroomService;
 import ra.service.mark.IMarkService;
 import ra.service.mark.MarkServiceIMPL;
 import ra.service.student.IStudentService;
 import ra.service.student.StudentServiceIMPL;
+import ra.service.user.IUserService;
+import ra.service.user.UserServiceIMPL;
 
 public class StudentView {
     IStudentService studentService = new StudentServiceIMPL();
     IClassroomService classroomService = new ClassroomServiceIMPL();
     IMarkService markService = new MarkServiceIMPL();
+
+    IUserService userService = new UserServiceIMPL();
 
     public void menuStudent() {
         int choice;
@@ -146,11 +151,21 @@ public class StudentView {
         System.out.println("Nhập số lượng học sinh cần thêm");
         int n = Config.validateInt();
         for (int i = 0; i < n; i++) {
-            System.out.println("Nhập học sinh thứ " + (i + 1) + ": ");
+        System.out.println("Nhập học sinh thứ " + (i + 1) + ": ");
             Student student = new Student();
             //
             System.out.println("Nhập tên học sinh");
             student.setStudentName(Config.scanner().nextLine());
+            System.out.println("Nhập vào ID tài khoản sinh viên:");
+            int userId = Config.validateInt();
+            User user = userService.findByID(userId);
+            while (user == null) {
+                System.out.println("ID Tài khoản sinh viên vừa nhập không tồn tại, hãy thử lại");
+                userId = Config.validateInt();
+                user = userService.findByID(userId);
+            }
+            student.setUserId(userId);
+
             // chọn classroom
             System.out.println("Danh sách lớp có thể chọn");
             for (int j = 0; j < classroomService.findAll().size(); j++) {
@@ -174,8 +189,10 @@ public class StudentView {
             student.setGender(Boolean.parseBoolean(Config.scanner().nextLine()));
             System.out.println("Nhập số điện thoại: ");
             student.setPhone(Config.scanner().nextLine());
+            student.setId(studentService.getNewId());
             studentService.save(student);
         }
+        System.out.println("Thêm mới học sinh thành công");
     }
 
     private void showListStudent() {

@@ -1,47 +1,43 @@
 package ra.service.student;
 
+import ra.constant.FileName;
 import ra.model.Student;
+import ra.repo.FileRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StudentServiceIMPL implements IStudentService{
-    static List<Student> studentList = new ArrayList<>();
+    private FileRepository<Student, Integer> studentRepository;
+
+    public StudentServiceIMPL() {
+        this.studentRepository = new FileRepository<>(FileName.STUDENT);
+    }
+
     @Override
     public List<Student> findAll() {
-        return studentList;
+        return studentRepository.findAll();
     }
 
     @Override
     public void save(Student student) {
-        studentList.add(student);
+        studentRepository.save(student);
     }
 
     @Override
     public void update(Student student) {
-        Student studentEdit = findByID(student.getId());
-        studentEdit.setStudentName(student.getStudentName());
-        studentEdit.setClassroom(student.getClassroom());
-        studentEdit.setAddress(student.getAddress());
-        studentEdit.setPhone(student.getPhone());
+        studentRepository.save(student);
 
     }
 
     @Override
     public void delete(int id) {
-        Student studentDelete = findByID(id);
-        studentList.remove(studentDelete);
+        studentRepository.deleteById(id);
 
     }
 
     @Override
     public Student findByID(int id) {
-        for (Student student : studentList) {
-            if (student.getId() == id){
-                return student;
-            }
-        }
-        return null;
+        return studentRepository.findById(id);
     }
 
     @Override
@@ -51,6 +47,17 @@ public class StudentServiceIMPL implements IStudentService{
 
     @Override
     public int getNewId() {
-        return 0;
+        return studentRepository.getNewId();
+    }
+
+    public Student findByUserId(Integer userId) {
+        List<Student> students = studentRepository.findAll();
+        for (Student student : students) {
+            if (student.getUserId() == userId) {
+                return student;
+            }
+        }
+
+        return null;
     }
 }

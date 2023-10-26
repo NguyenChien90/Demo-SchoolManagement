@@ -1,21 +1,25 @@
 package ra.view;
 
 import ra.config.Config;
-import ra.model.Classroom;
-import ra.model.Mark;
-import ra.model.Student;
-import ra.model.Subject;
+import ra.model.*;
 import ra.service.mark.IMarkService;
 import ra.service.mark.MarkServiceIMPL;
 import ra.service.student.IStudentService;
+import ra.service.student.StudentServiceIMPL;
 import ra.service.subject.ISubjectService;
 import ra.service.subject.SubjectServiceIMPL;
+import ra.service.user.UserServiceIMPL;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectView {
-    ISubjectService subjectService = new SubjectServiceIMPL();
+    SubjectServiceIMPL subjectService = new SubjectServiceIMPL();
     IMarkService markService = new MarkServiceIMPL();
+
+    UserServiceIMPL userService = new UserServiceIMPL();
+
+    StudentServiceIMPL studentService = new StudentServiceIMPL();
     public void menuSubject() {
         int choice;
         do {
@@ -91,11 +95,12 @@ public class SubjectView {
             Subject subject = new Subject();
             System.out.println("Nhap ten mon hoc: ");
             subject.setSubjectName(Config.scanner().nextLine());
+            subject.setId(subjectService.getNewId());
             subjectService.save(subject);
         }
     }
 
-    private void showListSubject() {
+    public void showListSubject() {
         System.out.println("DANH SACH MON HOC");
         if (subjectService.findAll().isEmpty()) System.out.println("Danh sách rỗng !!!");
 
@@ -103,5 +108,49 @@ public class SubjectView {
         for (Subject subject : subjectList) {
             System.out.println(subject);
         }
+    }
+
+    public void showStudentSubjects() {
+        System.out.println("Danh sách môn học được đăng ký:");
+        User user = userService.getCurrentUser();
+        Student student = studentService.findByUserId(user.getId());
+        if (student != null) {
+            List<Subject> subjects = student.getSubjects() == null ? new ArrayList<>() : student.getSubjects();
+            for (Subject subject : subjects) {
+                System.out.println(subject);
+            }
+            if (subjects.isEmpty()) {
+                System.out.println("Hiện đang rỗng");
+            }
+        }
+
+    }
+
+    public void registerSubjects() {
+        List<Subject> subjects = subjectService.findAll();
+        showListSubject();
+        System.out.println("Hãy chọn ID môn học muốn đăng ký");
+        int subjectId = Config.validateInt();
+        Subject subject = subjectService.findByID(subjectId);
+        while (subject == null) {
+            System.out.println("ID môn học không tồn tại, hãy nhập lại");
+            subjectId = Config.validateInt();
+            subject = subjectService.findByID(subjectId);
+        }
+
+        User currentUser = userService.getCurrentUser();
+        Student student = studentService.findByUserId(currentUser.getId());
+
+        List<Subject> studentSubjects = student.getSubjects() == null ? new ArrayList<>() : student.getSubjects();
+
+        for (Subject studentSubject : studentSubjects) {
+            if (studentSubject.getId().equals(subjectId)) {
+                System.out.println("Môn học này đã đăng ký rồi");
+            }
+        }
+        studentSubjects.add(subject);
+        student.setSubjects(studentSubjects);
+        studentService.save(student);
+        System.out.println("Đăng ký môn học thành công");
     }
 }
